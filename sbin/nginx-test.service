@@ -1,0 +1,16 @@
+[Unit]
+Description=nginx test - high performance web server
+Documentation=http://nginx.org/en/docs/
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/home/test/nginx/logs/nginx.pid
+ExecStart=/home/test/nginx/sbin/nginx -c /home/test/nginx/conf/nginx.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+User=test
+
+[Install]
+WantedBy=multi-user.target
